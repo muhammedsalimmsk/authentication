@@ -1,15 +1,17 @@
 import 'package:authentication/constant/constants.dart';
-import 'package:authentication/controller/get_table.dart';
-import 'package:authentication/models/data_model.dart';
+
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+
+import 'package:intl/intl.dart';
+
+import '../models/data_model/data_model.dart';
+
 
 class HomePage extends StatelessWidget {
-
- const HomePage({Key? key, required this.dataModel}) : super(key: key);
+  const HomePage({Key? key, required this.dataModel}) : super(key: key);
   final DataModel dataModel;
   @override
-  Widget build(BuildContext context ) {
+  Widget build(BuildContext context) {
     // final data=tableDataController.fetchData();
     return Scaffold(
       appBar: AppBar(
@@ -17,48 +19,53 @@ class HomePage extends StatelessWidget {
         title: const Text("Ledger"),
       ),
       body: Column(
-
         children: [
           Row(
-
             //scrollDirection: Axis.horizontal,
-            children:[ SingleChildScrollView(
-              child: DataTable(
-                columnSpacing: 25,
-                showBottomBorder: true,
-                showCheckboxColumn: true,
-                dividerThickness: 5,
-                columns: const [
-                  DataColumn(
-                      label: Text('S.No'), tooltip: 'represents serial number'),
-                  DataColumn(
-                      label: Text('Date'), tooltip: 'represents date of ledger'),
-                  DataColumn(
-                      label: Text('From A/c'), tooltip: 'represents account from'),
-                  DataColumn(
-                      label: Text('To A/c'), tooltip: 'represents to account'),
-                  DataColumn(
-                      label: Text('Debit'),
-                      tooltip: 'representing of debits amount'),
-                  DataColumn(
-                      label: Text('Credit'),
-                      tooltip: 'representing of credit amount'),
-                ],
-                rows:dataModel.data!.map((data) =>
-                  DataRow( cells:[
-                    DataCell(Text(data.number.toString())),
-                    DataCell(Text(data.date.toString())),
-                    DataCell(Text(data.fromAccount)),
-                    DataCell(Text(data.toAccount)),
-                    DataCell(Text(data.debitAmount.toString())),
-                    DataCell(Text(data.creditAmount.toString()))
-                  ]
-            )
-                ).toList()
-              ),
-            ),
-    ]
-          ),
+              children: [
+                SingleChildScrollView(
+                  child: DataTable(
+                      columnSpacing: 25,
+                      showBottomBorder: true,
+                      showCheckboxColumn: true,
+                      dividerThickness: 5,
+                      columns: const [
+                        DataColumn(
+                            label: Text('S.No'),
+                            tooltip: 'represents serial number'),
+                        DataColumn(
+                            label: Text('Date'),
+                            tooltip: 'represents date of ledger'),
+                        DataColumn(
+                            label: Text('From A/c'),
+                            tooltip: 'represents account from'),
+                        DataColumn(
+                            label: Text('To A/c'),
+                            tooltip: 'represents to account'),
+                        DataColumn(
+                            label: Text('Debit'),
+                            tooltip: 'representing of debits amount'),
+                        DataColumn(
+                            label: Text('Credit'),
+                            tooltip: 'representing of credit amount'),
+                      ],
+                      rows: List<DataRow>.generate(
+                      dataModel.data!.length,(index) {
+                        final item = dataModel.data![index];
+                        return
+                          DataRow(cells: [
+                            DataCell(Text((index+1).toString())),
+                            DataCell(Text((DateFormat('dd/MM/yyyy')
+                            .format(item.date!)))),
+                            const DataCell(
+                              // item.fromAccount!.name==null?Text("data"):Text("no data")
+                            Text("null")),
+                            DataCell(Text(item.toAccount!.name.toString())),
+                            DataCell(
+                                Text(item.entryType=="CREDIT"?item.amount.toString():"0")),
+                            DataCell(Text(item.entryType=="DEBIT"?item.amount.toString():"0"))
+                          ]);
+                      }),))])
         ],
       ),
     );

@@ -9,9 +9,8 @@ import 'package:http/http.dart' as http;
 
 import '../api data/api_key.dart';
 
-
 class LoginController extends GetxController {
- RxBool isLoggedIn = false.obs;
+  RxBool isLoggedIn = false.obs;
   TableDataController tableDataController = Get.put(TableDataController());
 
   void login(String email, password) async {
@@ -20,13 +19,13 @@ class LoginController extends GetxController {
           body: ({"email": email, "password": password}));
       if (response.statusCode == 200) {
         var data = jsonDecode(response.body.toString());
-        token= data["data"]["accessToken"];
+        token = data["data"]["accessToken"];
         isLoggedIn.value = true;
         print('Login successfully');
-        Get.offAll(HomePage(dataModel:await tableDataController.fetchData()));
+        Get.offAll(HomePage(dataModel: await tableDataController.fetchData()));
       } else {
-         Get.snackbar("Error","Error Logging details",
-         backgroundColor: Colors.redAccent);
+        Get.snackbar("Error", "Error Logging details",
+            backgroundColor: Colors.redAccent);
         print('failed');
       }
     } catch (e) {

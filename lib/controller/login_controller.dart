@@ -22,6 +22,7 @@ class LoginController extends GetxController {
         token = data["data"]["accessToken"];
         isLoggedIn.value = true;
         print('Login successfully');
+        print(token);
         Get.offAll(HomePage(dataModel: await tableDataController.fetchData()));
       } else {
         Get.snackbar("Error", "Error Logging details",

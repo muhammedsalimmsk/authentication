@@ -9,9 +9,9 @@ class FromAccount {
   String? branchId;
   String? companyId;
   String? createdBy;
-  dynamic updatedBy;
+  String? updatedBy;
   DateTime? createdAt;
-  dynamic updatedAt;
+  DateTime? updatedAt;
 
   FromAccount({
     this.id,
@@ -40,11 +40,13 @@ class FromAccount {
         branchId: json['branch_id'] as String?,
         companyId: json['company_id'] as String?,
         createdBy: json['created_by'] as String?,
-        updatedBy: json['updated_by'] as dynamic,
+        updatedBy: json['updated_by'] as String?,
         createdAt: json['created_at'] == null
             ? null
             : DateTime.parse(json['created_at'] as String),
-        updatedAt: json['updated_at'] as dynamic,
+        updatedAt: json['updated_at'] == null
+            ? null
+            : DateTime.parse(json['updated_at'] as String),
       );
 
   Map<String, dynamic> toJson() => {
@@ -60,6 +62,6 @@ class FromAccount {
         'created_by': createdBy,
         'updated_by': updatedBy,
         'created_at': createdAt?.toIso8601String(),
-        'updated_at': updatedAt,
+        'updated_at': updatedAt?.toIso8601String(),
       };
 }

@@ -1,4 +1,4 @@
-class FromCustomer {
+class ToCustomer {
   String? id;
   String? companyId;
   String? customerName;
@@ -24,7 +24,7 @@ class FromCustomer {
   DateTime? createdAt;
   DateTime? updatedAt;
 
-  FromCustomer({
+  ToCustomer({
     this.id,
     this.companyId,
     this.customerName,
@@ -51,7 +51,7 @@ class FromCustomer {
     this.updatedAt,
   });
 
-  factory FromCustomer.fromJson(Map<String, dynamic> json) => FromCustomer(
+  factory ToCustomer.fromJson(Map<String, dynamic> json) => ToCustomer(
         id: json['id'] as String?,
         companyId: json['companyId'] as String?,
         customerName: json['customerName'] as String?,

@@ -5,7 +5,6 @@ import 'package:http/http.dart' as http;
 import '../api data/api_key.dart';
 import '../models/data_model/data_model.dart';
 
-
 class TableDataController extends GetxController {
   Future<DataModel> fetchData() async {
     final response = await http

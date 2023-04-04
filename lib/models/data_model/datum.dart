@@ -1,6 +1,7 @@
 import 'from_account.dart';
-import 'from_customer.dart';
+import 'from_employee.dart';
 import 'to_account.dart';
+import 'to_customer.dart';
 
 class Datum {
   DateTime? date;
@@ -13,7 +14,8 @@ class Datum {
   String? entryType;
   FromAccount? fromAccount;
   ToAccount? toAccount;
-  FromCustomer? fromCustomer;
+  FromEmployee? fromEmployee;
+  ToCustomer? toCustomer;
 
   Datum({
     this.date,
@@ -26,7 +28,8 @@ class Datum {
     this.entryType,
     this.fromAccount,
     this.toAccount,
-    this.fromCustomer,
+    this.fromEmployee,
+    this.toCustomer,
   });
 
   factory Datum.fromJson(Map<String, dynamic> json) => Datum(
@@ -47,10 +50,13 @@ class Datum {
         toAccount: json['to_account'] == null
             ? null
             : ToAccount.fromJson(json['to_account'] as Map<String, dynamic>),
-        fromCustomer: json['from_customer'] == null
+        fromEmployee: json['from_employee'] == null
             ? null
-            : FromCustomer.fromJson(
-                json['from_customer'] as Map<String, dynamic>),
+            : FromEmployee.fromJson(
+                json['from_employee'] as Map<String, dynamic>),
+        toCustomer: json['to_customer'] == null
+            ? null
+            : ToCustomer.fromJson(json['to_customer'] as Map<String, dynamic>),
       );
 
   Map<String, dynamic> toJson() => {
@@ -64,6 +70,7 @@ class Datum {
         'entry_type': entryType,
         'from_account': fromAccount?.toJson(),
         'to_account': toAccount?.toJson(),
-        'from_customer': fromCustomer?.toJson(),
+        'from_employee': fromEmployee?.toJson(),
+        'to_customer': toCustomer?.toJson(),
       };
 }
